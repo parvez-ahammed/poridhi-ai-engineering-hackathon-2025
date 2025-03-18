@@ -5,17 +5,26 @@ from scrapy.selector import Selector
 class StartechSpider(scrapy.Spider):
     name = "startech"
     allowed_domains = ["startech.com.bd"]
-    start_urls = ["https://www.startech.com.bd/desktops"]
+    start_urls = ["https://www.startech.com.bd"]
 
     def parse(self, response):
+        # Extract category links from the navbar
+        for nav_item in response.css('ul.navbar-nav li.nav-item.has-child'):
+            parent_category = nav_item.css('a.nav-link::text').get().strip()
+            for sub_category in nav_item.css('ul.drop-down li.nav-item a.nav-link'):
+                sub_category_url = response.urljoin(sub_category.attrib['href'])
+                sub_category_name = sub_category.css('::text').get().strip()
+                yield response.follow(sub_category_url, callback=self.parse_category, meta={'parent_category': parent_category})
+
+    def parse_category(self, response):
         # Extract product links and follow them
         for product in response.css("div.p-item a::attr(href)"):
-            yield response.follow(product.get(), callback=self.parse_product)
+            yield response.follow(product.get(), callback=self.parse_product, meta={'parent_category': response.meta['parent_category']})
 
         # Handle pagination by finding the "NEXT" button
         next_page = response.css("ul.pagination a:contains('NEXT')::attr(href)").get()
         if next_page:
-            yield response.follow(next_page, callback=self.parse)
+            yield response.follow(next_page, callback=self.parse_category, meta={'parent_category': response.meta['parent_category']})
 
     def parse_product(self, response):
         # Extract breadcrumb links for category
@@ -69,12 +78,14 @@ class StartechSpider(scrapy.Spider):
         yield {
             "product_code": response.css(".product-code::text").get().strip() if response.css(".product-code::text").get() else None,
             "title": response.css("h1::text").get().strip() if response.css("h1::text").get() else None,
-            "image": image_links,
+            "main_image": response.urljoin(response.css("img.main-img::attr(src)").get()) if response.css("img.main-img::attr(src)").get() else None,
+            "gallery": image_links,
             "product_url": response.url,
             "price": price,
             "currency": currency,
             "brand": brand,
             "category": category,
+            "parent_category": response.meta['parent_category'],
             "description": description,
             "short_description": short_description,
             "specification": specification_table
