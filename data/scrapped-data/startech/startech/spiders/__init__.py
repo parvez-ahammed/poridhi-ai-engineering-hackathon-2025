@@ -54,9 +54,9 @@ class StartechSpider(scrapy.Spider):
         seo_info = response.css("#latest-price p::text").get()
         #currency itemprop content="BDT" is not present in the provided HTML
         currency = response.css("meta[itemprop='priceCurrency']::attr(content)").get()
-        
+
         price = response.css("meta[itemprop='price']::attr(content)").get()
-        
+
         #extract specification table
         specification_table = {}
         tables = response.css("table.data-table.flex-table")
@@ -70,7 +70,7 @@ class StartechSpider(scrapy.Spider):
                     value = "".join(row.css("td.value::text").getall()).strip()
                     if name:
                         specification_table[headers][name.strip()] = value.strip()
-        
+
         # Extract image links from thumbnails
         image_links = [response.urljoin(a.attrib['href']) for a in response.css('ul.thumbnails li a.thumbnail')]
 
