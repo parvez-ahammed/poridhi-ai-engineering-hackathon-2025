@@ -26,8 +26,8 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3 # Wait 3 seconds between requests
-RANDOMIZE_DOWNLOAD_DELAY = True  # Randomize delays to look more human
+DOWNLOAD_DELAY = 2 # Wait 3 seconds between requests
+RANDOMIZE_DOWNLOAD_DELAY = False  # Randomize delays to look more human
 
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -73,9 +73,9 @@ RANDOMIZE_DOWNLOAD_DELAY = True  # Randomize delays to look more human
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 2
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 5
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
 AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
@@ -93,3 +93,15 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 # Set settings whose default value is deprecated to a future-proof value
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+
+###############################################################
+# EXTRA ADDED FOR SAVING FILE TO same CSV - without overwriting:-
+###############################################################
+
+FEED_FORMAT = "csv"
+FEED_URI = "products.csv"
+# FEED_EXPORT_ENCODING = "utf-8"
+FEED_STORE_EMPTY = False  # Do not store empty files
+FEED_EXPORT_FIELDS = ["product_name", "price", "product_brand", "product_key_features", "product_specifications", "product_description"]
+

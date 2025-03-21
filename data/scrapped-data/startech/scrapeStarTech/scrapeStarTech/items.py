@@ -17,4 +17,5 @@ class StarTechItem(scrapy.Item):
     product_brand = scrapy.Field()
     product_key_features = scrapy.Field()
     product_description = scrapy.Field()
+    product_specifications = scrapy.Field()
     
