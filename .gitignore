@@ -1,2 +1,5 @@
 # Ignore all CSV files
 *.csv
+# Ignore python cache files
+__pycache__
+*pytest_cache
