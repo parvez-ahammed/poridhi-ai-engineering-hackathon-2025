@@ -1,5 +1,12 @@
 # Ignore all CSV files
 *.csv
+*.xlsx
 # Ignore python cache files
 __pycache__
 *pytest_cache
+venv
+linuxvenv
+.vscode
+*.json
+
+.cache
