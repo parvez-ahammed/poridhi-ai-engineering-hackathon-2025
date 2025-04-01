@@ -8,6 +8,7 @@ venv
 linuxvenv
 .vscode
 *.json
+bm25_cache
 .cache
 models
 qdrant_data
