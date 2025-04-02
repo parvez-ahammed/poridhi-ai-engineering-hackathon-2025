@@ -12,3 +12,4 @@ bm25_cache
 .cache
 models
 qdrant_data
+models--Cohere--multilingual-22-12

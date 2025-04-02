@@ -17,7 +17,9 @@ class BM25:
         self.k = k
         self.b = b
         self.avg_len = avg_len
-        self.tokenizer = AutoTokenizer.from_pretrained("Cohere/multilingual-22-12")
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            "Cohere/multilingual-22-12", cache_dir=os.getcwd()
+        )
 
     @classmethod
     def _load_stopwords(cls, model_dir: str, languages: list[str]) -> list[str]:
