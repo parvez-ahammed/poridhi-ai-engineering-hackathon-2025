@@ -13,3 +13,4 @@ bm25_cache
 models
 qdrant_data
 models--Cohere--multilingual-22-12
+trained_models
