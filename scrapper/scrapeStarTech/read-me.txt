@@ -1,0 +1,5 @@
+Terminal Cmds
+(1) To start new scrapy project : scrapy startproject myProjectName
+(2) To crawl site : cd myProjectName
+	(2.1) saving cmd:- scrapy crawl spiderName [auto saves to a file products.csv, donest overwrite previous items in csv]
+	(2.2) saving cmd:- scrapy crawl spiderName -o fileName.csv [auto saves to a new file fileName.csv]
