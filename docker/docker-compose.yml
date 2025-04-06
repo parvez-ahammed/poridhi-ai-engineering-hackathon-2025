@@ -1,68 +1,72 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  # E-commerce Search API
   api:
     build:
-      context: ../api
-      dockerfile: ../docker/Dockerfile.api
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000" # API port
-      - "9464:9464" # Prometheus metrics port
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - ENVIRONMENT=production
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+      - OTEL_SERVICE_NAME=search-api
+    depends_on:
+      - prometheus
     networks:
-      - monitoring-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+      - monitoring
 
-  # Prometheus for metrics collection
   prometheus:
     image: prom/prometheus:latest
     ports:
       - "9090:9090"
     volumes:
-      - ../monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus-data:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-      - "--web.console.libraries=/etc/prometheus/console_libraries"
-      - "--web.console.templates=/etc/prometheus/consoles"
-      - "--web.enable-lifecycle"
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
     networks:
-      - monitoring-network
-    restart: unless-stopped
-    depends_on:
-      - api
+      - monitoring
 
-  # Grafana for visualization
   grafana:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
     volumes:
-      - grafana-data:/var/lib/grafana
-      - ../monitoring/grafana/provisioning:/etc/grafana/provisioning
-      - ../monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - grafana_data:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_INSTALL_PLUGINS=grafana-piechart-panel
-    networks:
-      - monitoring-network
-    restart: unless-stopped
     depends_on:
       - prometheus
+    networks:
+      - monitoring
+
+  tempo:
+    image: grafana/tempo:latest
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./tempo/tempo.yaml:/etc/tempo.yaml
+      - tempo_data:/tmp/tempo
+    ports:
+      - "3200:3200"  # tempo
+      - "4317:4317"  # otlp grpc
+    networks:
+      - monitoring
 
 networks:
-  monitoring-network:
+  monitoring:
     driver: bridge
 
 volumes:
-  prometheus-data:
-  grafana-data:
+  prometheus_data:
+  grafana_data:
+  tempo_data:
