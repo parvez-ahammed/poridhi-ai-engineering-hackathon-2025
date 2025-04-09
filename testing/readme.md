@@ -13,11 +13,12 @@ This project runs a **k6** performance test on the API endpoint to evaluate resp
    - **Linux**: [Install k6](https://k6.io/docs/getting-started/installation/)
 
 2. **Ensure the API Server** is running at the appropriate port.
+3. Create a "summaries" folder to store the test results.
 
 ## Test Configuration
 
 - **Virtual Users (VUs)**: Starts with 2 VUs, ramps up to 5, and then ramps down to 0.
-- **Requests**: 10,000 iterations total with dynamic queries (randomized from a set list).
+- **Requests**: Iterations total with dynamic queries (randomized from a set list).
 - **Thresholds**:
   - 95% of requests should complete in under 200ms.
   - Failure rate should be less than 0.1%.
