@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project runs a **k6** performance test on the API endpoint to evaluate response times, failure rates, and system behavior under load.
+This runs a **k6** performance test on the API endpoint to evaluate response times, failure rates, and system behavior under load.
 
 ## Requirements
 
