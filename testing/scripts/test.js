@@ -18,7 +18,6 @@ const baseUrl = "http://localhost:3000/api/v1/stories?filter=";
 const responseTimeTrend = new Trend("response_time");
 
 export const options = {
-  vus: 10,
   thresholds: {
     http_req_duration: ["p(95)<200"],
     http_req_failed: ["rate<0.1"],
