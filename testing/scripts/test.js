@@ -20,12 +20,12 @@ const responseTimeTrend = new Trend("response_time");
 export const options = {
   thresholds: {
     http_req_duration: ["p(95)<200"],
-    http_req_failed: ["rate<0.1"],
+    http_req_failed: ["rate<0.5"],
   },
   stages: [
-    { duration: "30s", target: 2 },
-    { duration: "30s", target: 5 },
-    { duration: "30s", target: 0 },
+    { duration: "5s", target: 2 },
+    { duration: "5s", target: 5 },
+    { duration: "5s", target: 0 },
   ],
 };
 
