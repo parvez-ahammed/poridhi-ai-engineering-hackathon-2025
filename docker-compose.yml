@@ -8,10 +8,19 @@ services:
       - "8000:8000"  # Metrics
     volumes:
       - ./:/app
+      - ./logs:/app/logs  # Mount logs directory for persistence
     networks:
       - monitoring-network
     depends_on:
       - prometheus
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "loki.format=json"
+      - "loki.labels=job=search_api,service=api"
 
   prometheus:
     image: prom/prometheus:latest
@@ -21,6 +30,14 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - monitoring-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "loki.format=json"
+      - "loki.labels=job=prometheus,service=metrics"
 
   grafana:
     image: grafana/grafana:latest
@@ -34,10 +51,53 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      # Loki datasource is included with Grafana by default now, no need to install
     networks:
       - monitoring-network
     depends_on:
       - prometheus
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "loki.format=json"
+      - "loki.labels=job=grafana,service=dashboard"
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
+      - loki-data:/loki
+    networks:
+      - monitoring-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./logs:/var/log/app:ro
+      - ./promtail-config.yaml:/etc/promtail/config.yaml
+    command: -config.file=/etc/promtail/config.yaml
+    networks:
+      - monitoring-network
+    depends_on:
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   monitoring-network:
@@ -45,3 +105,4 @@ networks:
 
 volumes:
   grafana-data:
+  loki-data:
