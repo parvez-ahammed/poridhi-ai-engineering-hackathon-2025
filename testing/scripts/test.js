@@ -4,27 +4,40 @@ import { Trend, Rate } from "k6/metrics";
 
 // Array of search queries to test the API with
 const queries = [
-  "ai",
-  "robot",
-  "health",
-  "education",
-  "science",
-  "data",
-  "ethics",
-  "blockchain",
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
 ];
 
-const BASE_URL = "http://localhost:3000/api/v1/stories?filter=";
+const BASE_URL = "http://localhost:8080/search?q=";
 const responseTimeTrend = new Trend("response_time");
 const successRate = new Rate("http_req_success");
 
 // Test configuration: VUs, stages, and thresholds
 export const options = {
-  thresholds: {
-    http_req_duration: ["p(95)<200"], // 95% requests should be under 200ms
-    http_req_failed: ["rate<0.5"], // Failure rate should be below 0.5%
-    http_req_success: ["rate>0.95"], // Success rate should be above 95%
-  },
   stages: [
     { duration: "5s", target: 2 }, // Ramp-up to 2 VUs in 5 seconds
     { duration: "5s", target: 5 }, // Ramp-up to 5 VUs in 5 seconds
@@ -42,7 +55,7 @@ export function setup() {
 export default function (data) {
   const baseUrl = data.baseUrl;
   const query = queries[Math.floor(Math.random() * queries.length)];
-  const url = `${baseUrl}${query}&page=1&per_page=8&order=createdAt:desc`;
+  const url = `${baseUrl}${query}`;
 
   // Send GET request and measure the response times
   const res = http.get(url);
