@@ -9,7 +9,7 @@ receivers:
   - name: "slack-notifications"
     slack_configs:
       - send_resolved: true
-        api_url: "https://hooks.slack.com/services/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"
+        api_url: "${SLACK_WEBHOOK_URL}"
         channel: "#prometheus-alertmanager"
         text: |
           *Alert:* {{ .CommonLabels.alertname }}
