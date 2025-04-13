@@ -1,5 +1,16 @@
 # Ignore all CSV files
 *.csv
+*.xlsx
 # Ignore python cache files
 __pycache__
 *pytest_cache
+venv
+linuxvenv
+.vscode
+*.json
+bm25_cache
+.cache
+models
+qdrant_data
+models--Cohere--multilingual-22-12
+trained_models
