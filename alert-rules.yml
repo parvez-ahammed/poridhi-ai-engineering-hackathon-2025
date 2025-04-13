@@ -1,0 +1,10 @@
+groups:
+  - name: instance-health
+    rules:
+      - alert: SearchAPIServiceDown
+        expr: up{job="search-api"} == 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "Search API service is down"
+          description: "The Search API job (search-api) has been unreachable."

@@ -3,16 +3,25 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'search-api'
+  - job_name: "search-api"
     scrape_interval: 5s
     static_configs:
-      - targets: ['api:8000']
+      - targets: ["api:8000"]
 
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     scrape_interval: 5s
     static_configs:
-      - targets: ['localhost:9090']
-             
-  - job_name: 'loki'
+      - targets: ["localhost:9090"]
+
+  - job_name: "loki"
     static_configs:
-      - targets: ['loki:3100']
+      - targets: ["loki:3100"]
+
+rule_files:
+  - "alert-rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093

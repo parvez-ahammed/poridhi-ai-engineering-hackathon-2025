@@ -1,0 +1,18 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  receiver: "slack-notifications"
+  repeat_interval: 1m
+
+receivers:
+  - name: "slack-notifications"
+    slack_configs:
+      - send_resolved: true
+        api_url: "https://hooks.slack.com/services/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"
+        channel: "#prometheus-alertmanager"
+        text: |
+          *Alert:* {{ .CommonLabels.alertname }}
+          *Severity:* {{ .CommonLabels.severity }}
+          *Description:* {{ .CommonAnnotations.description }}
+          *Summary:* {{ .CommonAnnotations.summary }}
