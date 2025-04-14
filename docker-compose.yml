@@ -113,6 +113,21 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  tempo:
+    image: grafana/tempo:latest
+    command: ["-config.file=/etc/tempo/config.yml"]
+    ports:
+      - "3200:3200"
+    volumes:
+      - ./tempo-config.yml:/etc/tempo/config.yml
+      - tempo-data:/var/tempo
+    networks:
+      - monitoring-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 networks:
   monitoring-network:
     driver: bridge
@@ -120,3 +135,4 @@ networks:
 volumes:
   grafana-data:
   loki-data:
+  tempo-data:
