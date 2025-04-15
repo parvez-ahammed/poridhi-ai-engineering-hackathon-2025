@@ -1,8 +1,7 @@
 services:
   api:
     build:
-      context: ..
-      dockerfile: deployments/docker/Dockerfile.api
+      context: .
     ports:
       - "8080:8080" # API
       - "8000:8000" # Metrics
@@ -72,7 +71,7 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - ./configs/loki-config.yaml:/etc/loki/local-config.yaml
+      - ./configs/loki/loki-config.yaml:/etc/loki/local-config.yaml
       - loki-data:/loki
     networks:
       - monitoring-network
@@ -86,7 +85,7 @@ services:
     image: grafana/promtail:latest
     volumes:
       - ./monitoring/logs:/var/log/app:ro
-      - ./configs/promtail-config.yaml:/etc/promtail/config.yaml
+      - ./configs/promtail/promtail-config.yaml:/etc/promtail/config.yaml
     command: -config.file=/etc/promtail/config.yaml
     networks:
       - monitoring-network
