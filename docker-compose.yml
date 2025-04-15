@@ -27,7 +27,6 @@ services:
       - "9090:9090"
     volumes:
       - ./configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./configs/prometheus/alert-rules.yml:/etc/prometheus/alert-rules.yml
     networks:
       - monitoring-network
     logging:
@@ -45,7 +44,8 @@ services:
       - "3000:3000"
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./configs/grafana:/etc/grafana/
+      - ./configs/grafana/dashboards:/etc/grafana/dashboards
+      - ./configs/grafana/datasources:/etc/grafana/datasources
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin

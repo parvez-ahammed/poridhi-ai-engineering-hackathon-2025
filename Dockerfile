@@ -20,4 +20,4 @@ ENV PYTHONUNBUFFERED=1
 ENV LOG_DIRECTORY=/app/logs
 
 # Run the application
-CMD ["python", "main.py"]
+CMD ["python", "./apps/search_api/main.py"]
