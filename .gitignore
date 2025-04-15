@@ -6,3 +6,7 @@ __pycache__
 
 # Exclude all .env files
 .env
+
+
+qdrant_data
+ml_model
