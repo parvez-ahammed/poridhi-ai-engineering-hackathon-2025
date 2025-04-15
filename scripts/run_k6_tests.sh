@@ -1,0 +1,1 @@
+# This shell script will run the k6 tests for the specified test file.
