@@ -1,0 +1,1 @@
+# This script will run the docker-compose command to start the services defined in the docker-compose.yml file.
