@@ -1,12 +1,14 @@
 services:
   api:
-    build: .
+    build:
+      context: ..
+      dockerfile: deployments/docker/Dockerfile.api
     ports:
       - "8080:8080" # API
       - "8000:8000" # Metrics
     volumes:
       - ./:/app
-      - ./logs:/app/logs # Mount logs directory for persistence
+      - ./monitoring/logs:/app/logs
     networks:
       - monitoring-network
     depends_on:
@@ -25,8 +27,8 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./alert-rules.yml:/etc/prometheus/alert-rules.yml
+      - ./configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./configs/prometheus/alert-rules.yml:/etc/prometheus/alert-rules.yml
     networks:
       - monitoring-network
     logging:
@@ -44,13 +46,12 @@ services:
       - "3000:3000"
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./configs/grafana:/etc/grafana/
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_AUTH_ANONYMOUS_ENABLED=false
-      # Loki datasource is included with Grafana by default now, no need to install
     networks:
       - monitoring-network
     depends_on:
@@ -71,7 +72,7 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - ./loki-config.yaml:/etc/loki/local-config.yaml
+      - ./configs/loki-config.yaml:/etc/loki/local-config.yaml
       - loki-data:/loki
     networks:
       - monitoring-network
@@ -84,8 +85,8 @@ services:
   promtail:
     image: grafana/promtail:latest
     volumes:
-      - ./logs:/var/log/app:ro
-      - ./promtail-config.yaml:/etc/promtail/config.yaml
+      - ./monitoring/logs:/var/log/app:ro
+      - ./configs/promtail-config.yaml:/etc/promtail/config.yaml
     command: -config.file=/etc/promtail/config.yaml
     networks:
       - monitoring-network
@@ -102,7 +103,7 @@ services:
     ports:
       - "9093:9093"
     volumes:
-      - ./alertmanager-config.yml:/etc/alertmanager/config.yml
+      - ./configs/alertmanager/alertmanager-config.yml:/etc/alertmanager/config.yml
     command:
       - "--config.file=/etc/alertmanager/config.yml"
     networks:
@@ -119,7 +120,7 @@ services:
     ports:
       - "3200:3200"
     volumes:
-      - ./tempo-config.yml:/etc/tempo/config.yml
+      - ./configs/tempo/tempo-config.yml:/etc/tempo/config.yml
       - tempo-data:/var/tempo
     networks:
       - monitoring-network
@@ -128,6 +129,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
 networks:
   monitoring-network:
     driver: bridge
