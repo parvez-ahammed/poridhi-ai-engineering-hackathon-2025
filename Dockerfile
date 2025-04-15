@@ -20,4 +20,5 @@ ENV PYTHONUNBUFFERED=1
 ENV LOG_DIRECTORY=/app/logs
 
 # Run the application
-CMD ["python", "./apps/search_api/main.py"]
+# CMD ["python", "./apps/search_api/main.py"]
+CMD ["uvicorn", "apps.search_api.search:app", "--host", "0.0.0.0", "--port", "8000"]
