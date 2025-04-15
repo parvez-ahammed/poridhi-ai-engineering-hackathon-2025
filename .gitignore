@@ -14,3 +14,6 @@ models
 qdrant_data
 models--Cohere--multilingual-22-12
 trained_models
+ml_model
+.locks
+.env
