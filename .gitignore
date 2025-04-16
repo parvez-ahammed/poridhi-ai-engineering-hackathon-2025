@@ -10,3 +10,4 @@ __pycache__
 
 qdrant_data
 ml_model
+models--Cohere--multilingual-22-12
