@@ -7,7 +7,7 @@ from qdrant_client.models import (
     FusionQuery,
     Fusion,
 )
-from bm25 import BM25
+from .bm25 import BM25
 import os
 from dotenv import load_dotenv
 
@@ -18,9 +18,9 @@ QDRANT_URL = os.environ.get("QDRANT_URL")
 
 app = FastAPI()
 
-model = SentenceTransformer("./ml_model")
+model = SentenceTransformer("./apps/search_api/ml_model")
 bm25 = BM25(
-    stopwords_dir=os.path.abspath("./stopwords"), languages=["english", "bengali"]
+    stopwords_dir=os.path.abspath("./apps/search_api/stopwards"), languages=["english", "bengali"]
 )
 qdrant_client = QdrantClient(url=QDRANT_URL, timeout=600)
 
