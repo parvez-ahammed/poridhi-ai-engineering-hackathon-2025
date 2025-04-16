@@ -80,3 +80,7 @@ def search_product(query: str = None, query_type="dense", limit: int = 5):
     query_res = search(query_text=query, query_type=query_type, limit=limit)
 
     return query_res
+
+@app.get("/metrics")
+def metrics():
+    print("Prometheus metrics")

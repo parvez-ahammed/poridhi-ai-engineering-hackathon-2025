@@ -150,6 +150,8 @@ services:
         target: /qdrant/config/production.yaml
     volumes:
       - ./qdrant_data:/qdrant/storage
+    networks:
+      - monitoring-network
 
 configs:
   qdrant_config:
