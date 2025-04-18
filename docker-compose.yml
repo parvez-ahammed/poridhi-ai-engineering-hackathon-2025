@@ -3,6 +3,7 @@ services:
     container_name: ${PROJECT_NAME}_api
     build:
       context: .
+      dockerfile: "./apps/search_api/Dockerfile"
     ports:
       - "8080:8080" # API
       - "8000:8000" # Metrics
