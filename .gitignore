@@ -11,3 +11,5 @@ __pycache__
 qdrant_data
 ml_model
 models--Cohere--multilingual-22-12
+node_modules
+package-lock.json

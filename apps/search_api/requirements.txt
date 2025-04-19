@@ -1,3 +1,12 @@
+fastapi
+uvicorn
+pydantic
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi
+opentelemetry-exporter-prometheus
+opentelemetry-exporter-otlp
+prometheus-client
 fastapi==0.115.12
 sentence-transformers==4.0.2
 qdrant-client==1.13.3

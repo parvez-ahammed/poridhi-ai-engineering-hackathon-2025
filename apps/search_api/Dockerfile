@@ -3,7 +3,7 @@ FROM python:3.10-slim AS builder
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY requirements.txt .
+COPY ./apps/search_api/requirements.txt .
 RUN /opt/venv/bin/pip install pip --upgrade && \
     /opt/venv/bin/pip install -r requirements.txt --no-cache-dir
 
@@ -17,7 +17,7 @@ USER fastapi
 COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY --chown=fastapi:fastapi . /opt/webapp
+COPY --chown=fastapi:fastapi ./apps/search_api /opt/webapp
 
-WORKDIR /opt/webapp/apps/search_api
+
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
