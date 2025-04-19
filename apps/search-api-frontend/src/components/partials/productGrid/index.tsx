@@ -1,5 +1,5 @@
 import { NotFound } from "@/assets/images";
-import { IStory } from "@/common/interfaces/storyApi.interface";
+import { IStory } from "@/common/interfaces/productApi.interface";
 import { useLocales } from "@/config/i18n";
 
 import { StoryCard } from "./components/ProductCard";

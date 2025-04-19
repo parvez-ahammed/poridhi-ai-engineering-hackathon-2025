@@ -21,6 +21,14 @@ QDRANT_URL = os.environ.get("QDRANT_URL")
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or ["http://localhost:5173"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 model = SentenceTransformer("./ml_model")
 bm25 = BM25(
     stopwords_dir=os.path.abspath("./stopwards"), languages=["english", "bengali"]

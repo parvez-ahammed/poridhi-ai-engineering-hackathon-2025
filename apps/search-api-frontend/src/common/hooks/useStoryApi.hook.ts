@@ -1,14 +1,11 @@
 import { IPaginationOptions } from "@/common/interfaces/paginationOptions.interface";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { storyApi } from "../apis/story.api";
+import { storyApi } from "../apis/products.api";
 import { EMPTY_STRING, QUERY_KEYS } from "../constants/app.constant";
-import {
-    ICreateStoryPayload,
-    IGenerateStoryResponse,
-} from "../interfaces/storyApi.interface";
+import { ICreateStoryPayload } from "../interfaces/productApi.interface";
 
 import { errorToast, successToast } from "./toasts";
 
@@ -71,10 +68,7 @@ export const useGetStory = (productId: string) => {
     useEffect(() => {
         if (data) {
             queryClient.invalidateQueries({
-                queryKey: [
-                    QUERY_KEYS.ALL_products_BY_USER,
-                    data.authorUsername,
-                ],
+                queryKey: [QUERY_KEYS.ALL_products_BY_USER, data.score],
             });
             queryClient.invalidateQueries({
                 queryKey: [QUERY_KEYS.SINGLE_USER],
@@ -90,16 +84,6 @@ export const useGetStory = (productId: string) => {
     }, [data, queryClient]);
 
     return { story: data, isLoading, error };
-};
-
-export const useGetAllproductsByUsername = (username: string) => {
-    const { data, isLoading, error } = useQuery({
-        queryKey: [QUERY_KEYS.ALL_products_BY_USER, username],
-        queryFn: () => storyApi.getAllByUser(username),
-        enabled: !!username,
-    });
-
-    return { products: data ?? [], isLoading, error };
 };
 
 export const useCreateStory = () => {
@@ -177,60 +161,4 @@ export const useDeleteStory = () => {
     });
 
     return { deleteStory: mutate, error };
-};
-
-export const useGenerateStory = () => {
-    const [storyData, setStoryData] = useState<IGenerateStoryResponse | null>(
-        null
-    );
-
-    const { mutate, error, isPending } = useMutation({
-        mutationFn: ({
-            title,
-            description,
-        }: {
-            title: string;
-            description: string;
-        }) => storyApi.generate(title, description),
-        onSuccess: (data: IGenerateStoryResponse) => {
-            successToast({ message: "Story generated successfully" });
-            console.log("Generated story:", data);
-            setStoryData(data);
-        },
-        onError: () => {
-            errorToast({ message: "Failed to generate story" });
-        },
-    });
-
-    return { generateStory: mutate, error, isPending, data: storyData };
-};
-
-export const useToggleLike = () => {
-    const queryClient = useQueryClient();
-    const { mutate, error } = useMutation({
-        mutationFn: (productId: string) => storyApi.toggleLike(productId),
-        onSuccess: (_, productId) => {
-            queryClient.invalidateQueries({
-                queryKey: [QUERY_KEYS.ALL_products],
-            });
-            queryClient.invalidateQueries({
-                queryKey: [QUERY_KEYS.CHECK_STORY_LIKE, productId],
-            });
-            queryClient.invalidateQueries({
-                queryKey: [QUERY_KEYS.SINGLE_STORY],
-            });
-        },
-    });
-
-    return { toggleLike: mutate, error };
-};
-
-export const useCheckLike = (productId: string) => {
-    const { data, isLoading, error } = useQuery<{ liked: boolean }>({
-        queryKey: [QUERY_KEYS.CHECK_STORY_LIKE, productId],
-        queryFn: () => storyApi.checkLike(productId),
-        enabled: !!productId,
-    });
-
-    return { liked: data?.liked || false, isLoading, error };
 };
