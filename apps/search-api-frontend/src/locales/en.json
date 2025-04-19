@@ -1,0 +1,151 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "cta": {
+            "returnHome": "Return Home",
+            "goBack": "Go Back",
+            "login": "Login",
+            "signup": "Signup",
+            "close": "Close",
+            "clear": "Clear",
+            "addNewStory": "Add New Story"
+        },
+        "info": {
+            "noResultFound": "No results found.",
+            "search": "Search..."
+        }
+    },
+    "auth": {
+        "message": {
+            "loginSuccess": "Login successful",
+            "loginFailed": "Login failed",
+            "signupSuccess": "Signup successful",
+            "signupFailed": "Signup failed"
+        },
+        "formLabel": {
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm Password",
+            "username": "Username",
+            "name": "Name"
+        },
+        "info": {
+            "loggingIn": "Logging in...",
+            "signingUp": "Signing up...",
+            "welcomeBack": "Welcome back!",
+            "loginToAccount": "Login to your account",
+            "dontHaveAccount": "Don't have an account?",
+            "welcomeToDevJots": "Welcome to Searchy!",
+            "signUpToJotDown": "Sign up to jot down your thoughts!",
+            "alreadyHaveAccount": "Already have an account?"
+        }
+    },
+    "navbar": {
+        "cta": {
+            "profile": "Profile",
+            "logout": "Logout",
+            "login": "Log in",
+            "jumpTo": "Jump to",
+            "createAccount": "Create Account"
+        },
+        "info": {
+            "typeToSearch": "Type to search for products",
+            "noResultFound": " No results found for ",
+            "searchStorisAndUsers": "Search for products"
+        }
+    },
+    "story": {
+        "message": {
+            "storyAdded": "Story added successfully",
+            "storyDeleted": "Story deleted successfully",
+            "storyUpdated": "Story updated successfully",
+            "titleRequired": "Title is required",
+            "descriptionRequired": "Description is required",
+            "failedToCreateStory": "Failed to create story",
+            "failedToUpdateStory": "Failed to update story",
+            "failedToDeleteStory": "Failed to delete story"
+        },
+        "formLabel": {
+            "title": "Story Title",
+            "content": "Story Content",
+            "tags": "Story Tags"
+        },
+        "info": {
+            "addNewStory": "Add New Story",
+            "editStory": "Edit Story",
+            "deleteStory": "Delete Story",
+            "noproductsFound": "No products found",
+            "noproductsFoundDesc": "There are no products available at the moment. Check back later",
+            "searchproducts": "Search products...",
+            "exitFullscreen": "Exit Fullscreen",
+            "fullscreen": "Fullscreen",
+            "editor": "Editor",
+            "preview": "Preview",
+            "words": "Words:",
+            "characters": "Characters:",
+            "withSpaces": "with spaces",
+            "generating": "Generating...",
+            "creating": "Creating...",
+            "updating": "Updating...",
+            "minRead": " min read",
+            "joined": "Joined:",
+            "tags": "Tags:",
+            "summarizedByAi": "Summarized by AI",
+            "readMore": "Read more",
+            "moreFromUser": "More from this user",
+            "noMoreproducts": "No more products available.",
+            "noMoreproductsDesc": "This user has not shared any more products yet.",
+            "noSummaryFound": "No summary found",
+            "products": "products",
+            "followers": "Followers",
+            "following": "Following",
+            "likes": "Likes"
+        },
+        "cta": {
+            "edit": "Edit",
+            "delete": "Delete",
+            "create": "Create",
+            "update": "Update",
+            "clear": "Clear",
+            "generateWithAi": "Generate with AI",
+            "ascending": "Oldest",
+            "descending": "Newest",
+            "date": "Date",
+            "title": "Title",
+            "author": "Author",
+            "openActionsMenu": "Open actions menu",
+            "nextPage": "Next Page",
+            "previousPage": "Previous Page",
+            "follow": "Follow",
+            "unfollow": "Unfollow",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "copied": "Copied",
+            "share": "Share"
+        },
+        "tooltip": {
+            "bold": "Bold",
+            "italic": "Italic",
+            "heading1": "Heading 1",
+            "heading2": "Heading 2",
+            "heading3": "Heading 3",
+            "link": "Link",
+            "image": "Image",
+            "code": "Code",
+            "quote": "Quote",
+            "unorderedList": "Unordered List",
+            "orderedList": "Ordered List",
+            "splitView": "Split view",
+            "previewOnly": "Preview only",
+            "editorOnly": "Editor only"
+        },
+        "alert": {
+            "deleteTitle": "Are you sure?",
+            "deleteDescription": "This action cannot be undone. This will permanently delete the story.",
+            "clearTitle": "Are you sure?",
+            "clearDescription": "This action cannot be undone. This will clear all the content in the editor.",
+            "createTitle": "Are you sure?",
+            "createDescription": "This action cannot be undone. This will create a new story."
+        }
+    }
+}
