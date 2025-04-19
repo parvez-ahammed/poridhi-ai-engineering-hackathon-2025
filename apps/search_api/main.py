@@ -10,6 +10,7 @@ from qdrant_client.models import (
 from bm25 import BM25
 import os
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -17,6 +18,14 @@ QDRANT_COLLECTION_NAME = os.environ.get("QDRANT_COLLECTION_NAME")
 QDRANT_URL = os.environ.get("QDRANT_URL")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or ["http://localhost:5173"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 model = SentenceTransformer("./ml_model")
 bm25 = BM25(
