@@ -1,0 +1,12 @@
+.git
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+logs
+qdrant_data
+models--Cohere--multilingual-22-12
+load_tests
+scrapper
+monitoring
+.env
