@@ -3,7 +3,7 @@ import { config } from "./config.constant";
 const API_PATH = config.backendApiUrl;
 
 export const API_ENDPOINTS = {
-    STORY: {
+    PRODUCT: {
         CREATE: `${API_PATH}/products`,
         ALL: `${API_PATH}/products`,
         SINGLE: (productId: string) => `${API_PATH}/products/${productId}`,

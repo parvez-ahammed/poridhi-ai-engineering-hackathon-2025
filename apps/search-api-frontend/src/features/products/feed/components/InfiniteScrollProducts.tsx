@@ -1,5 +1,5 @@
 import { useGetAllproducts } from "@/common/hooks/useStoryApi.hook";
-import { IStory } from "@/common/interfaces/storyApi.interface";
+import { IStory } from "@/common/interfaces/productApi.interface";
 import { useLocales } from "@/config/i18n";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
