@@ -23,6 +23,21 @@ services:
       - "loki.format=json"
       - "loki.labels=job=search_api,service=api"
 
+  frontend:
+    container_name: ${PROJECT_NAME}_frontend
+    build:
+      context: .
+      dockerfile: "./apps/search-api-frontend/Dockerfile"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./apps/search-api-frontend:/app
+      - ./apps/search-api-frontend/node_modules:/app/node_modules
+    networks:
+      - monitoring-network
+    depends_on:
+      - api
+
   prometheus:
     container_name: ${PROJECT_NAME}_prometheus
     image: prom/prometheus:latest

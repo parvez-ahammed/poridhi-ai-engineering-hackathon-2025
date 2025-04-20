@@ -4,7 +4,7 @@ const envSchema = z.object({
     VITE_BACKEND_API_PATH: z
         .string()
         .min(1, "VITE_BACKEND_API_PATH must be at least 1 character long")
-        .default("http://127.0.0.1:8000/"),
+        .default("http://127.0.0.1:8000"),
 });
 
 function validateEnv() {
