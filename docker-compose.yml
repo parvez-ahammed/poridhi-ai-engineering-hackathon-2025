@@ -26,8 +26,8 @@ services:
   frontend:
     container_name: ${PROJECT_NAME}_frontend
     build:
-      context: .
-      dockerfile: "./apps/search-api-frontend/Dockerfile"
+      context: ./apps/search-api-frontend
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
     volumes:

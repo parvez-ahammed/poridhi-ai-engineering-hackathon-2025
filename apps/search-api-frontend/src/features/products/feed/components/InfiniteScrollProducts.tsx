@@ -1,5 +1,5 @@
 import { useGetAllproducts } from "@/common/hooks/useStoryApi.hook";
-import { IStory } from "@/common/interfaces/productApi.interface";
+import { IProduct } from "@/common/interfaces/productApi.interface";
 import { useLocales } from "@/config/i18n";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ const useInfiniteScrollproducts = () => {
     const [searchParams] = useSearchParams();
     const searchKey = searchParams.toString();
     const [page, setPage] = useState(0);
-    const [products, setproducts] = useState<IStory[]>([]);
+    const [products, setproducts] = useState<IProduct[]>([]);
     const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const useInfiniteScrollproducts = () => {
     useEffect(() => {
         if (!fetchedproducts) return;
 
-        const newproducts = (fetchedproducts as IStory[]) || [];
+        const newproducts = (fetchedproducts as IProduct[]) || [];
 
         if (page === 0) {
             setproducts(newproducts);
