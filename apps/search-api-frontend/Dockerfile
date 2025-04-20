@@ -1,17 +1,9 @@
-FROM node:18-alpine
+FROM node:22.12.0
 
 WORKDIR /app
 
-COPY package.json .
-
-RUN npm install
-
-RUN npm i -g serve
-
 COPY . .
-
-RUN npm run build
 
 EXPOSE 5173
 
-CMD [ "serve", "-s", "dist", "-l", "tcp://0.0.0.0:5173" ]
+CMD [ "npm", "run", "dev" ]
