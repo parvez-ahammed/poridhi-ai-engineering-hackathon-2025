@@ -32,7 +32,10 @@ services:
       - "5173:5173"
     volumes:
       - ./apps/search-api-frontend:/app
-      - ./apps/search-api-frontend/node_modules:/app/node_modules
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
     networks:
       - monitoring-network
     depends_on:
