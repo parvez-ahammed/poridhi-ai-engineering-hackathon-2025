@@ -17,3 +17,4 @@ trained_models
 ml_model
 .locks
 .env
+mlruns
