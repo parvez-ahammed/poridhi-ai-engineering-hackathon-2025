@@ -32,7 +32,7 @@ const queries = [
   "z",
 ];
 
-const BASE_URL = "http://localhost:8080/search?q=";
+const BASE_URL = "http://localhost:8000/products?query=";
 const responseTimeTrend = new Trend("response_time");
 const successRate = new Rate("http_req_success");
 
