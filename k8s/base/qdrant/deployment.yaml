@@ -16,4 +16,5 @@ spec:
         - name: qdrant
           image: qdrant/qdrant:latest
           ports:
-            - containerPort: 80
+            - containerPort: 6333
+            - containerPort: 6334
