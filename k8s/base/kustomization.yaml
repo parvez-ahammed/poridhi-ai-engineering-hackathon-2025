@@ -1,0 +1,29 @@
+resources:
+  # - api/deployment.yaml
+  # - api/service.yaml
+  # - api/configmap.yaml
+  # - frontend/deployment.yaml
+  # - frontend/service.yaml
+  # - frontend/configmap.yaml
+  # - prometheus/deployment.yaml
+  # - prometheus/service.yaml
+  # - prometheus/configmap.yaml
+  # - grafana/deployment.yaml
+  # - grafana/service.yaml
+  # - grafana/configmap.yaml
+  # - loki/deployment.yaml
+  # - loki/service.yaml
+  # - loki/configmap.yaml
+  # - promtail/deployment.yaml
+  # - promtail/service.yaml
+  # - promtail/configmap.yaml
+  # - alertmanager/deployment.yaml
+  # - alertmanager/service.yaml
+  # - alertmanager/configmap.yaml
+  # - tempo/deployment.yaml
+  # - tempo/service.yaml
+  # - tempo/configmap.yaml
+  - qdrant/deployment.yaml
+  - qdrant/service.yaml
+  - qdrant/configmap.yaml
+  - volumes/pvc.yaml
