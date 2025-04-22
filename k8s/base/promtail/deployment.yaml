@@ -13,7 +13,7 @@ spec:
         app: promtail
     spec:
       containers:
-      - name: promtail
-        image: your-registry/promtail:latest
-        ports:
-        - containerPort: 80
+        - name: promtail
+          image: grafana/promtail:latest
+          ports:
+            - containerPort: 80

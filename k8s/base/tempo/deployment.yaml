@@ -13,7 +13,7 @@ spec:
         app: tempo
     spec:
       containers:
-      - name: tempo
-        image: your-registry/tempo:latest
-        ports:
-        - containerPort: 80
+        - name: tempo
+          image: grafana/tempo:latest
+          ports:
+            - containerPort: 3200

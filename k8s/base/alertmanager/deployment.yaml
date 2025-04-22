@@ -13,7 +13,7 @@ spec:
         app: alertmanager
     spec:
       containers:
-      - name: alertmanager
-        image: your-registry/alertmanager:latest
-        ports:
-        - containerPort: 80
+        - name: alertmanager
+          image: prom/alertmanager:latest
+          ports:
+            - containerPort: 9093

@@ -13,7 +13,7 @@ spec:
         app: api
     spec:
       containers:
-      - name: api
-        image: your-registry/api:latest
-        ports:
-        - containerPort: 80
+        - name: api
+          image: api:latest
+          ports:
+            - containerPort: 80

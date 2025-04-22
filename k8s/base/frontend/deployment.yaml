@@ -13,7 +13,8 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
-        image: your-registry/frontend:latest
-        ports:
-        - containerPort: 80
+        - name: frontend
+          image: frontend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5173

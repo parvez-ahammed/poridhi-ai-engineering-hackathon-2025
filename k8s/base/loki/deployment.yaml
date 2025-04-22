@@ -13,7 +13,7 @@ spec:
         app: loki
     spec:
       containers:
-      - name: loki
-        image: your-registry/loki:latest
-        ports:
-        - containerPort: 80
+        - name: loki
+          image: grafana/loki:latest
+          ports:
+            - containerPort: 3100
