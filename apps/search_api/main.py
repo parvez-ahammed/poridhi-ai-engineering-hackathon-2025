@@ -13,6 +13,9 @@ from dotenv import load_dotenv
 import time
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 from fastapi.responses import Response
+from logging_loki import LokiHandler
+import logging
+
 
 load_dotenv()
 
@@ -28,6 +31,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+loki_handler = LokiHandler(
+    url="http://localhost:3100/loki/api/v1/push",  # Adjust if Loki is remote
+    tags={"app": "fastapi-search-service"},
+    version="1",
+)
+
+logger = logging.getLogger("loki_logger")
+logger.setLevel(logging.INFO)
+logger.addHandler(loki_handler)
 
 model = SentenceTransformer("./ml_model")
 bm25 = BM25(
@@ -164,6 +177,10 @@ def search_product(query: str = None, query_type="dense", limit: int = 5):
 
     try:
         query_res = search(query_text=query, query_type=query_type, limit=limit)
+        logger.info("Search query", extra={
+            "search_query": query,
+            "results": query_res,
+        })
         return query_res
     except Exception as e:
         SEARCH_COUNTER.labels(query_type=query_type, status="error").inc()
