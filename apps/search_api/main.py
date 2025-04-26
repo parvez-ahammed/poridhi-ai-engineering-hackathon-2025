@@ -124,7 +124,7 @@ def search(query_text: str, query_type: str = "hybrid", limit: int = 5):
                 prefetch=prefetch,
                 query=FusionQuery(fusion=Fusion.RRF),
                 with_payload=True,
-                limit=limit,
+                limit=30,
             )
 
         elif query_type == "sparse":
@@ -133,7 +133,7 @@ def search(query_text: str, query_type: str = "hybrid", limit: int = 5):
                 query=SparseVector(**sparse_vector),
                 using="sparse_vector",
                 with_payload=True,
-                limit=limit,
+                limit=30,
             )
 
         elif query_type == "dense":
@@ -142,12 +142,24 @@ def search(query_text: str, query_type: str = "hybrid", limit: int = 5):
                 query=dense_vector,
                 using="dense_vector",
                 with_payload=True,
-                limit=limit,
+                limit=30,
             )
 
-        response_data = [
-            {"score": point.score, "payload": point.payload} for point in results.points
-        ]
+        unique_titles = set()
+        unique_products = []
+
+        for points in results.points:
+            title = points.payload.get("title")
+            if title and title not in unique_titles and points.score >= 0.4:
+                unique_titles.add(title)
+                unique_products.append(points.payload)
+
+                if len(unique_products) >= limit:
+                    break
+        return unique_products
+        # response_data = [
+        #     {"score": point.score, "payload": point.payload} for point in results.points
+        # ]
         
     except Exception as e:
         success = False
