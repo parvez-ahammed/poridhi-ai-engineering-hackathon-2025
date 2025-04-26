@@ -14,7 +14,7 @@ import time
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 from fastapi.responses import Response
 from logging_loki import LokiHandler
-# from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 import logging
 
 
@@ -25,13 +25,13 @@ QDRANT_URL = os.environ.get("QDRANT_URL")
 
 app = FastAPI()
 
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],  # or ["http://localhost:5173"]
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 loki_handler = LokiHandler(
     url="http://localhost:3100/loki/api/v1/push",  # Adjust if Loki is remote

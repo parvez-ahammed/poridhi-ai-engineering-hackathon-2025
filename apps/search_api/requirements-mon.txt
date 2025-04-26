@@ -1,2 +1,2 @@
 prometheus-client
-logging-loki
+python-logging-loki
