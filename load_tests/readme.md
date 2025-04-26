@@ -30,3 +30,22 @@ To run the performance test:
 ```bash
 k6 run test.js
 ```
+
+## Other scripts
+From terminal
+Generate shareable HTML report in local.
+```
+$env:K6_WEB_DASHBOARD="true"; $env:K6_WEB_DASHBOARD_EXPORT=”html-report.html” ;k6 run ./demo-script/stage.js
+```
+Generate live streaming report in local
+```
+$env:K6_WEB_DASHBOARD_PERIOD = "1s"; k6 run --out 'web-dashboard' ./demo-script/stage.js
+```
+Running script in cloud (Grafana) 
+```
+Grafana account > API key > k6 cloud login –token > k6 cloud ./demo-script/stage.js
+Running test result locally → Sending end of result to Grafana →  k6 run ./demo-script/stage.js -o cloud
+```
+Running result from different geo-location
+Other time series db like Datadog, InfluxDB, Prometheus etc
+

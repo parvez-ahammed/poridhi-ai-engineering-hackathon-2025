@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "48b1314d-d70a-4336-bb82-3389c0df6d3f",
+		"name": "pridhi-hackathon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25688594",
+		"_collection_link": "https://crimson-crescent-378555.postman.co/workspace/bitter_code~e5dd988a-09e1-470b-8edf-3ecafb0badac/collection/25688594-48b1314d-d70a-4336-bb82-3389c0df6d3f?action=share&source=collection_link&creator=25688594"
+	},
+	"item": [
+		{
+			"name": "get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/products?query=ল্যাপটপ laptop&query_type=dense&limit=5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "ল্যাপটপ laptop"
+						},
+						{
+							"key": "query_type",
+							"value": "dense"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
